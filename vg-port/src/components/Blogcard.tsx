@@ -1,37 +1,40 @@
-import React from 'react';
-
-interface BlogCardProps {
-  title: string;
-  author: string; 
-  body: string;
-  image: string;
+import React from "react";
+import { Link } from 'react-router-dom';
+interface Props {
+  blog: Blog;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({title, author, body, image}) => {
+export default function BlogCard({ blog }: Props) {
+  const publishedDate =
+    blog.publishedDate instanceof Date
+      ? blog.publishedDate.toDateString()
+      : new Date(blog.publishedDate).toDateString();
 
   return (
-    <div className="bg-white rounded overflow-hidden shadow-md">
-      <img 
-        className="w-full"
-        src={image} 
-        alt="Blog" 
+    <>
+    <div className="bg-blue-100 p-4 rounded-lg">
+      <img
+        src={blog.blogImage}
+        alt={blog.blogTitle}
+        className="w-full rounded-lg"
       />
 
-      <div className="px-6 py-4">
-        <h2 className="font-bold text-xl mb-2">{title}</h2>
+      <h2 className="mt-2 text-lg font-medium">Title:{blog.blogTitle}</h2>
 
-        <p className="text-gray-700 text-base">
-          {body}
-        </p>
-      </div>
+      <p className="text-gray-600">{blog.blogSummary}</p>
 
-      <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          {author}
-        </span>
+      <div className="mt-4 flex justify-between items-center">
+        <p className="text-sm text-gray-500">{publishedDate}</p>
+
+
+       
+      <Link to={`/blog/${blog.id}`} className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
+        Read More  
+      </Link>
+    
+      
       </div>
     </div>
+    </>
   );
 }
-
-export default BlogCard;

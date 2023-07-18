@@ -16,13 +16,13 @@ const Navbar: React.FC<NavbarProps> = ({title}) => {
                 <span className="font-bold text-xl text-blue-600">{title}</span>
                 <a href="/" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
                 
-                <a href="/blogsPage" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blogs</a>
+                <a href="/Blogs" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blogs</a>
                 
                 <a href="/login" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
                 
                 <a href="/about" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
                 
-                <a href="/portfolio" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Portfolio</a>
+                <a href="/DashboardPage" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
                 <a href="/ContactUs" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact us</a>
 
               </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchBlogs } from '../Redux/Features/ blogs/fethcallblogs'; // Correct the import path
+import { fetchBlogs} from '../Redux/Features/ blogs/fethcallblogs'; // Correct the import path
 interface Blog {
   blogMainTitle: string;
   blogTitle: string;
@@ -49,21 +49,21 @@ const RecentBlogs = () => {
         </thead>
 
         <tbody className="bg-white divide-y divide-gray-200">
-          {blogs.map(blog => ( // Correct the variable name here to "blog"
-            <tr key={blog.id}> {/* Assuming that the blog objects have an "id" property */}
+          {blogs.map(Blog => ( // Correct the variable name here to "blog"
+            <tr key={Blog.id}> {/* Assuming that the blog objects have an "id" property */}
               <td className="px-6 py-4">
                 <div className="flex items-center space-x-3">
                   <div className="inline-flex w-10 h-10">
                     <img 
-                      src={blog.blogImage}
-                      alt={blog.blogTitle} 
+                      src={Blog.blogImage}
+                      alt={Blog.blogTitle} 
                       className="w-full h-full rounded-full"
                     />
                   </div>
                   
                   <div>
                     <p className="text-sm font-medium text-gray-900">
-                      {blog.blogTitle}
+                      {Blog.blogAuthor}
                     </p>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ const RecentBlogs = () => {
               
               <td className="px-6 py-4">
                 <p className="text-sm text-gray-500">
-                  {blog.blogDescription}
+                  {Blog.blogAuthor}
                 </p>
               </td>
             </tr>
