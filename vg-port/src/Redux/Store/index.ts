@@ -1,30 +1,50 @@
-// import ReactDOM from 'react-dom';
-// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { Middleware, Reducer } from 'redux';
+import { createLogger } from 'redux-logger';
+import authSlice, { LoginState } from "../Features/User/loginSlice";
+import thunk from 'redux-thunk';
+import signupSlice from "../Features/signup/signup";
+import blogSlice  from "../Features/ blogs/ addblog";
+import  blogsSlice from "../Features/ blogs/fethcallblogs";
+import fetchBlogByIdSlice from "../Features/ blogs/Fetchblogbyid"
 
-// import BlogPage from '../../';
-// import BlogDetail from './BlogDetail';
-// import About from './About';
-// import Home from './Home';
+// App middleware definition
+type AppMiddleware = Middleware[];
 
-// const App = () => {
-//   return (
-//     <Router>
-//       <Switch>
-//         <Route exact path="/">
-//           <Home />
-//         </Route>
-//         <Route path="/about">
-//           <About />
-//         </Route>
-//         <Route path="/blog">
-//           <BlogPage />
-//         </Route>
-//         <Route path="/blog/:id">
-//           <BlogDetail />
-//         </Route>
-//       </Switch>
-//     </Router>
-//   );
-// }
+// Store options interface
+interface StoreOptions {
+  reducer: {
+    user: Reducer<LoginState>;
+  };
+  middleware: AppMiddleware;
+}
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+// Create default middleware
+const defaultMiddleware = getDefaultMiddleware();
+
+// Middleware array
+const middleware: AppMiddleware = [
+  ...defaultMiddleware,
+  thunk,
+];
+
+// Logger middleware in dev environment
+let logger: Middleware | undefined;
+if (process.env.NODE_ENV === 'development') {
+  logger = createLogger();
+  middleware.push(logger);
+}
+
+// Create store with types
+const store = configureStore({
+  reducer: {
+    user: authSlice.reducer,
+    signup:signupSlice,
+    addblog:blogSlice.reducer,
+    blogs:blogsSlice.reducer,
+    blogid:fetchBlogByIdSlice,
+  },
+  middleware,
+} as StoreOptions);
+
+export default store;
