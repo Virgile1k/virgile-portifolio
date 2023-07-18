@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({title}) => {
                 
                 <a href="/about" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
                 
-                <a href="/portfolio" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Portfolio</a>
+                <a href="/DashboardPage" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
                 <a href="/ContactUs" className="text-gray-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact us</a>
 
               </div>

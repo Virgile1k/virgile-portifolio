@@ -1,49 +1,36 @@
-// import React from 'react';
-// import { Badge } from '../components/Badge';
+import { useState } from 'react';
+import { Blog } from '../components/types/Blogiterface';
 
-// interface BlogPost {
-//   id: number;
-//   title: string; 
-//   content: string;
-//   image: string;
-//   tags: string[]; 
-// }
+interface Props {
+  blog: Blog;
+}
 
-// const blogPosts: BlogPost[] = [
-//   {
-//     id: 1,
-//     title: 'My First Blog Post',
-//     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis velit sit amet felis mattis, a scelerisque purus cursus. Fusce at nunc nisl. Praesent ac interdum elit.',
-//     image: '../assets/ html.png', 
-//     tags: ['javascript', 'beginners']
-//   },
-//   {
-//     id: 2,
-//     title: '10 Tips for React Developers',
-//     content: 'Maecenas fermentum rutrum quam, sed vehicula ipsum porta sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus euismod a augue at cursus.',
-//     image: '/assets/post2.jpg',
-//     tags: ['react', 'tips']
-//   }
-// ];
+export const BlogCard = ({ blog }: Props) => {
+  const [showFull, setShowFull] = useState(false);
 
-// const BlogsPage = () => {
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-md">
+      <img 
+        src={blog.blogImage}
+        alt={blog.blogTitle}
+        className="w-full rounded-lg mb-4"
+      />
 
-//   return (
-//     <div className="container mx-auto px-5">
-//       <h1 className="text-3xl font-bold mb-8">Blogs</h1>
-//       {blogPosts.map(post => (
-//         <div key={post.id} className="mb-10">
-//           <img src={post.image} className="w-full max-h-64 object-cover mb-5" />
-//           <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-//           <p className="text-gray-700 mb-5">{post.content}</p>
-//           <div className="flex flex-wrap gap-2">
-//             {post.tags.map(tag => (
-//               <Badge text={tag} />
-//             ))}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-// export default BlogsPage;
+      <h2 className="text-2xl font-bold mb-2">{blog.blogTitle}</h2>
+      
+      <p className="text-gray-700">
+        {showFull ? blog.blogSummary : `${blog.blogSummary.substring(0, 100)}...`}
+        <button
+          className="text-blue-500 ml-4"
+          onClick={() => setShowFull(!showFull)}
+        >
+          {showFull ? 'Show Less' : 'Read More'}
+        </button>
+      </p>
+
+      <p className="text-gray-500 text-sm">
+        By {blog.blogAuthor} on {blog.publishedDate.toDateString()}
+      </p>
+    </div>
+  );
+};

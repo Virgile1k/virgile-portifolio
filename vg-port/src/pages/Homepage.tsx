@@ -1,5 +1,6 @@
 import profileImage from "../assets/ EW2.jpeg";
 import Navbar from "../components/Navbar";
+import Page from "../pages/Portifolio";
 // import {  TailSpin} from 'react-loading-icons';
 // import { FaHome, FaUser, FaBriefcase, FaEnvelope, FaRss } from "react-icons/fa";
 
@@ -31,9 +32,9 @@ const HomePage = () => {
         </div> */}
         <div className="relative flex lg:flex-row items-center container mx-auto px-5 py-24 lg:py-32 border-2 border-blue-500 ">
           <div className="lg:w-140">
-            <div className="bg-white-500 rounded-lg overflow-hidden w-64 h-96 border-2 border-blue-500">
+            <div className="bg-white-500 rounded-lg overflow-hidden w-64 h-96 border-2 border-blue-500 ">
               <img
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
                 src={profileImage}
                 alt="Profile picture"
               />
@@ -62,6 +63,7 @@ const HomePage = () => {
            </button>
            
           </div>
+        
         </div>
       </section>
       <footer className="bg-black text-blue-500 text-center py-4">

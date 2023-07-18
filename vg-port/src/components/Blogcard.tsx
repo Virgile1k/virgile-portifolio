@@ -1,37 +1,33 @@
-import React from 'react';
+// interface CardProps {
+//   title: string;
+//   image: string;
+//   excerpt: string;
+// }
 
-interface BlogCardProps {
-  title: string;
-  author: string; 
-  body: string;
-  image: string;
-}
+// export const Card = ({ title, image, excerpt }: CardProps) => {
+//   return (
+//     <div className="bg-white rounded-lg shadow-md overflow-hidden">
 
-const BlogCard: React.FC<BlogCardProps> = ({title, author, body, image}) => {
+//       <img 
+//         src={image}
+//         alt={title}
+//         className="w-full h-48 object-cover"
+//       />
 
-  return (
-    <div className="bg-white rounded overflow-hidden shadow-md">
-      <img 
-        className="w-full"
-        src={image} 
-        alt="Blog" 
-      />
+//       <div className="p-5">
 
-      <div className="px-6 py-4">
-        <h2 className="font-bold text-xl mb-2">{title}</h2>
+//         <h3 className="font-bold text-lg mb-3">{title}</h3>
 
-        <p className="text-gray-700 text-base">
-          {body}
-        </p>
-      </div>
+//         <p className="text-gray-700 text-sm">
+//           {excerpt}
+//         </p>
 
-      <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          {author}
-        </span>
-      </div>
-    </div>
-  );
-}
+//         <button className="bg-indigo-500 text-white px-3 py-2 rounded-lg mt-3 hover:bg-indigo-600">
+//           Read More
+//         </button>
+      
+//       </div>
 
-export default BlogCard;
+//     </div>
+//   );
+// }

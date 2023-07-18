@@ -1,120 +1,113 @@
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-
-import logo from "../assets/ logo.svg";
+import { useDispatch } from "react-redux";
+import { signupUser } from "../Redux/Features/signup/signup";
 import Navbar from "../components/Navbar"; 
+import logo from "../assets/ logo.svg";
+import Loader from "../components/Loader";
+import { ToastContainer, toast } from "react-toastify";
 
-interface SignupProps {
-  onSignup: (name: string, email: string, password: string) => void;
-}
+function SignupPage() {
 
-const Signup: React.FC<SignupProps> = ({ onSignup }) => {
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [repeatPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (password === confirmPassword) {
-      onSignup(name, email, password);
-    }
+  const [loading, setLoading] = useState(false); // added loading state
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    setLoading(true); // set loading to true
+    dispatch(signupUser({ fullName, email, password, repeatPassword }))
+      .then(() => setLoading(false)) // set loading to false after dispatch
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(prevShowPassword => !prevShowPassword);
   };
 
   return (
     <>
-      <Navbar title="Virgile" />
+      <Navbar title="virgile" />
 
-      <div className="bg-white-200 h-screen flex items-center bg-black">
-        <div className="max-w-md mx-auto bg-blue-500 p-8 shadow-lg">
-        <h1 className="text-3xl font-bold text-pink-50 text-center mb-6">
-            <div className="mr-4">
-              <img src={logo} alt="" />
+      <div className="bg-black-500 p-10 flex justify-center items-center  ">
+
+        <div className="max-w-md mx-auto bg-blue-500 p-8 shadow-lg w-96">
+        <ToastContainer />
+          
+          <center>
+            <div className="animate-pulse">
+              <img src={logo} alt=""/>
             </div>
-            Sign Up
-          </h1>
-          <form onSubmit={handleSubmit}>
+          </center>
 
-            {/* Name input */}
-            <div className="mb-4">
-              <label className="block text-pink-50 font-bold mb-2">
-                Name
-              </label>
-              <input 
-                type="text"
-                className="border rounded w-full py-2 px-3"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+          <center>
+            <h1 className=" font-medium text-pink-50 mb-6">Sign Up</h1>  
+          </center>
 
-            {/* Email input */}
-            <div className="mb-4 text-pink-50">
-              <label className="block text-pink-50 font-bold mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                className="border rounded w-full py-2 px-3"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}  
-              />
-            </div>
+          <div className="my-5">
+            <label className="block text-pink-50">Full Name</label>
+            <input 
+              className="border p-5 w-full h-2" 
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)} 
+            />
+          </div>
 
-            {/* Password input */}
-            <div className="mb-4 text-pink-50 relative">
-              <label className="block text-pink-50 font-bold mb-2">
-                Password
-              </label>
-              <input
-                type={showPassword ? "text" : "password"}
-                className="border rounded w-full py-2 px-3 pr-10"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} 
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-8 mt-3 mr-1  text-blue-500"
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
+          <div className="my-5">
+            <label className="block text-pink-50">Email</label>
+            <input
+              className="border p-5 w-full h-2"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} 
+            />
+          </div>
 
-            {/* Confirm password input */}
-            <div className="mb-10 text-pink-50">
-              <label className="block text-pink-50 font-bold mb-2">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                className="border rounded w-full py-2 px-3"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
+          <div className="my-5 relative">
+            <label className="block text-pink-50">Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="border p-5 w-full h-2"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} 
+            />
+            <button
+              className="absolute right-5 top-10 text-xl"
+              onClick={handlePasswordVisibility}
+            >
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
 
-            {/* Submit button */}
-            <div className="flex justify-center">
-              <button 
-                type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-80"
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
+          <div className="my-5">
+            <label className="block text-pink-50">Repeat Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="border p-5 w-full h-2"
+              value={repeatPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)} 
+            />
+          </div>
 
-          {/* Login link */}
-          <a href="/login" className="text-pink-50 ml-2">
-            Login
+          <button 
+            className="bg-blue-600 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg w-80 "
+            onClick={handleSubmit}
+          >
+       
+            {loading ? <Loader /> : "Sign Up"}
+          </button>
+
+          <a href="/Login" className="text-pink-50 text-lg ml-2">
+            Have Account?   Login
           </a>
+
         </div>
+
       </div>
     </>
   );
-};
+}
 
-export default Signup;
+export default SignupPage;
