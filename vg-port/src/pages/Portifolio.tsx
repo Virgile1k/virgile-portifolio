@@ -2,6 +2,8 @@
 // import { Link } from 'react-router-dom';
 import CardW from '../components/MywCard';
 import image1 from '../assets/ proj1.png';
+import quiz from "../assets/quizapp.png";
+import portifolio from "../assets/ portifolio.png";
 //  import node1 from '../assets/ nodejs.png';
 // import Navbar from '../components/Navbar';
 
@@ -14,17 +16,17 @@ const cardsData = [
   {
     imgSrc: image1,
     text: "Ecommerce Backend",
-    link: "/project-1",
+    link: "https://github.com/atlp-rwanda/e-comm-team-techtitans-bn",
   },
   {
-    imgSrc: image1,
+    imgSrc: quiz,
     text: "QuizApp",
-    link: "/project-1",
+    link: "https://github.com/Virgile1k/quiz-app-vg",
   },
   {
-    imgSrc: image1,
+    imgSrc: portifolio,
     text: "My Portifolio",
-    link: "/project-1",
+    link: "shorturl.at/mnrN0",
   },
  
  

@@ -25,6 +25,7 @@ interface AboutProps {
 const About = ({ title }: AboutProps) => {
   return (
     <>
+    
       <Navbar title="About" />
       <div className="bg-black text-white py-10">
         <div className="max-w-6xl mx-auto">
@@ -108,6 +109,9 @@ const About = ({ title }: AboutProps) => {
           {/* Experience */}
         </div>
         <Page/>
+        <footer className="bg-black text-blue-500 text-center py-4">
+        <p>&copy; {new Date().getFullYear()} Virgile2023. All rights reserved.</p>
+      </footer>
       </div>
     </>
   );

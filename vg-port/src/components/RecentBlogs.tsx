@@ -63,7 +63,7 @@ const RecentBlogs = () => {
                   
                   <div>
                     <p className="text-sm font-medium text-gray-900">
-                      {Blog.blogAuthor}
+                      {Blog.blogTitle}
                     </p>
                   </div>
                 </div>

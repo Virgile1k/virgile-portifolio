@@ -1,8 +1,7 @@
 export interface Message {
-    id: string;
-    subject: string; 
-    body: string;
-    sender: string;
-    date: string; 
-    read?: boolean;
+  id: string;
+  name: string;
+  email: string;
+  content: string;
+  createdAt: Date;
   }

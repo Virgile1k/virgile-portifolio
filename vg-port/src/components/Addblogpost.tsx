@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addblog } from '../Redux/Features/ blogs/ addblog';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addblog } from "../Redux/Features/ blogs/ addblog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import Loader from "../components/Loader";
+// import Sidebar from "../components/Sidebar";
 
 function BlogForm() {
   const dispatch = useDispatch();
 
-  const [blogMainTitle, setBlogMainTitle] = useState('');
-  const [blogTitle, setBlogTitle] = useState('');
-  const [blogAuthor, setBlogAuthor] = useState('');
-  const [blogImage, setBlogImage] = useState('');
-  const [blogSummary, setBlogSummary] = useState('');
-  const [blogContent, setBlogContent] = useState(''); // New state for content
-  const [publishedDate, setPublishedDate] = useState('');
+  const [blogMainTitle, setBlogMainTitle] = useState("");
+  const [blogTitle, setBlogTitle] = useState("");
+  const [blogAuthor, setBlogAuthor] = useState("");
+  const [blogImage, setBlogImage] = useState("");
+  const [blogSummary, setBlogSummary] = useState("");
+  const [blogContent, setBlogContent] = useState(""); // New state for content
+  const [publishedDate, setPublishedDate] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,23 +44,17 @@ function BlogForm() {
         })
       );
 
-      toast.success('Blog added successfully!', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
-
       // Clear form fields after successful submission
-      setBlogMainTitle('');
-      setBlogTitle('');
-      setBlogAuthor('');
-      setBlogImage('');
-      setBlogSummary('');
-      setBlogContent(''); // Clear the editor content as well
-      setPublishedDate('');
-
+      setBlogMainTitle("");
+      setBlogTitle("");
+      setBlogAuthor("");
+      setBlogImage("");
+      setBlogSummary("");
+      setBlogContent(""); // Clear the editor content as well
+      setPublishedDate("");
     } catch (error) {
-      toast.error('Error adding blog. Please try again.', {
-        position: 'top-right',
+      toast.error("Error adding blog. Please try again.", {
+        position: "top-right",
         autoClose: 3000,
       });
     }
@@ -158,7 +154,13 @@ function BlogForm() {
         className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
         disabled={isLoading}
       >
-        {isLoading ? 'Adding...' : 'Add Blog'}
+        {isLoading ? (
+          <>
+            Adding... <Loader />
+          </>
+        ) : (
+          "Add Blog"
+        )}
       </button>
     </form>
   );

@@ -1,85 +1,122 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+ 
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signupUser } from "../Redux/Features/signup/signup";
+import Navbar from "../components/Navbar"; 
+import logo from "../assets/ logo.svg";
+import Loader from "../components/Loader";
+import { ToastContainer, toast } from "react-toastify";
 
-import { fetchBlogs } from '../Redux/Features/ blogs/fethcallblogs'; // Correct the import path
-interface Blog {
-  blogMainTitle: string;
-  blogTitle: string;
-  blogAuthor: string;
-  blogImage: string;
-  blogSummary: string;
-  blogDescription: string;
-  publishedDate: Date;
-}
-const RecentBlogs = () => {
+function SignupPage() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false); // added loading state
+
   const dispatch = useDispatch();
-  const blogs = useSelector(state => state.blogs.blogs);
-  const status = useSelector(state => state.blogs.status);
 
-  useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+  const handleFormReset = () => {
+    setFullName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setShowPassword(false);
+  };
 
-  if (!Array.isArray(blogs) || blogs.length === 0) {
-    return <div>No blogs found</div>;
-  }
+  const handleSubmit = () => {
+    setLoading(true); // set loading to true
+    dispatch(signupUser({ fullName, email, password, repeatPassword }))
+      .then(() => {
+        setLoading(false); // set loading to false after dispatch
+        handleFormReset(); // clear form after successful submission
+      })
+      .catch((error) => {
+        setLoading(false); // set loading to false after dispatch
+        // Handle any error, e.g., display an error message to the user
+      });
+  };
 
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  if (status === 'failed') {
-    return <div>Error loading blogs</div>;
-  }
+  const handlePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 mt-12">
-      <h2 className="text-2xl font-semibold mb-4">Recent Blogs</h2>
+    <>
+      <Navbar title="virgile" />
+      <ToastContainer/>
 
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-              Title
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-              Author
-            </th>
-          </tr>
-        </thead>
+      <div className="bg-black-500 p-10 flex justify-center items-center  ">
+        <div className="max-w-md mx-auto bg-blue-500 p-8 shadow-lg w-96">
+          <center>
+            <div className="animate-pulse">
+              <img src={logo} alt="" />
+            </div>
+          </center>
 
-        <tbody className="bg-white divide-y divide-gray-200">
-          {blogs.map(blog => ( // Correct the variable name here to "blog"
-            <tr key={blog.id}> {/* Assuming that the blog objects have an "id" property */}
-              <td className="px-6 py-4">
-                <div className="flex items-center space-x-3">
-                  <div className="inline-flex w-10 h-10">
-                    <img 
-                      src={blog.blogImage}
-                      alt={blog.blogTitle} 
-                      className="w-full h-full rounded-full"
-                    />
-                  </div>
-                  
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">
-                      {blog.blogTitle}
-                    </p>
-                  </div>
-                </div>
-              </td>
-              
-              <td className="px-6 py-4">
-                <p className="text-sm text-gray-500">
-                  {blog.blogDescription}
-                </p>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          <center>
+            <h1 className="font-medium text-pink-50 mb-6">Sign Up</h1>
+          </center>
+
+          <div className="my-5">
+            <label className="block text-pink-50">Full Name</label>
+            <input
+              className="border p-5 w-full h-2"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+          </div>
+
+          <div className="my-5">
+            <label className="block text-pink-50">Email</label>
+            <input
+              className="border p-5 w-full h-2"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="my-5 relative">
+            <label className="block text-pink-50">Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="border p-5 w-full h-2"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              className="absolute right-5 top-10 text-xl"
+              onClick={handlePasswordVisibility}
+            >
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+
+          <div className="my-5">
+            <label className="block text-pink-50">Repeat Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="border p-5 w-full h-2"
+              value={repeatPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <button
+            className="bg-blue-600 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg w-80"
+            onClick={handleSubmit}
+          >
+            {loading ? <Loader /> : "Sign Up"}
+          </button>
+
+          <a href="/Login" className="text-pink-50 text-lg ml-2">
+            Have Account? Login
+          </a>
+        </div>
+      </div>
+    </>
   );
 }
 
-export default RecentBlogs;
+export default SignupPage;

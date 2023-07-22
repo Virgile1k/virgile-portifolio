@@ -1,85 +1,117 @@
-import { FaEnvelope, FaPhoneAlt,FaPaperPlane } from "react-icons/fa";
-import { BsFacebook, BsLinkedin,BsGithub} from "react-icons/bs";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postMessage } from "../Redux/Messages/Messagepost";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+function ContactUs() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [content, setContent] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
-export default function ContactUs() {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await dispatch(postMessage({ fullName: name, email: email, content: content }));
+      setName("");
+      setEmail("");
+      setContent("");
+
+    } catch (error) {
+      toast.error("Failed to send message.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      <Navbar title="Virgile" />
-     <center>  <h2 className="text-2xl font-bold mb-4  text-blue-500 mt-6">
-            Contact Me
-          </h2></center>
-      <div className="flex flex-col md:flex-row mt-20 rounded-gl border-2 border-blue-500">
-        <div className="basis-1/3 p-8 rounded-gl border-r-2 border-blue-500">
-          <h2 className="text-2xl font-bold mb-4  text-white">
-            Get in Touch
-          </h2>
-
-          <div className="flex items-center mb-4">
-            <FaEnvelope className="mr-2 text-white" />
-            <div>
-              <h3 className="font-medium  text-white">Mail Me</h3>
-              <p className="text-blue-600">hello@example.com</p>
-            </div>
-          </div>
-
-          <div className="flex items-center mb-4">
-            <FaPhoneAlt className="mr-2 text-blue-500" />
-            <div>
-              <h3 className="font-medium  text-white">Call Me</h3>
-              <p className="text-blue-600 text-blue-500">+1 234 567 8910</p>
-            </div>
-          </div>
-
-          <div className="flex justify-center space-x-4  text-white mr-80">
-            <BsFacebook size={32} />
-            <BsGithub size={32} />
-            <BsLinkedin size={32} />
-          </div>
+    <div>
+      <Navbar title="Contact Me"></Navbar>
+      <center>
+        <h2 className="text-2xl font-bold text-blue-500 mt-10">Contact</h2>
+      </center>
+      <div className="flex">
+        <div className="w-1/3 px-10 bg-black mt-20">
+          <a
+            href="https://github.com"
+            target="_blank"
+            className="block mb-5 text-blue-500 hover:underline"
+          >
+            <GitHubIcon />Github
+          </a>
+          <a
+            href="https://www.linkedin.com"
+            target="_blank"
+            className="block mb-5 text-blue-500 hover:underline"
+          >
+            <LinkedInIcon />
+            LinkedIn
+          </a>
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            className="block mb-5 text-blue-500 hover:underline"
+          >
+            <YouTubeIcon />
+            YouTube
+          </a>
         </div>
 
-        <div className="basis-2/3 p-8">
-          <h2 className="text-2xl font-bold mb-4 text-blue-500">
-            Send a Message
-          </h2>
+        <form
+          onSubmit={handleSubmit}
+          className="w-2/3 px-10 py-10 border-color-blue shadow-md rounded-md"
+        >
+          <div className="mb-5">
+            <label className="block text-gray-700 font-bold mb-2">Name</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full border border-gray-400 p-2 rounded-md"
+            />
+          </div>
 
-          <form>
-            <div className="mb-4 flex">
-              <div className="mr-2 w-1/3">
-                <label className="block font-medium text-sm text-blue-500">
-                  Subject
-                </label>
-                <input type="text" className="border p-2 w-full rounded-gl border-2 border-blue-500 text-white bg-black" />
-              </div>
-              <div className="mr-2 w-1/3">
-                <label className="block font-medium text-sm text-blue-500 ">
-                  Email
-                </label>
-                <input type="email" className="border p-2 w-full rounded-gl border-2 border-blue-500 bg-black text-white" />
-              </div>
-              <div className="w-1/3">
-                <label className="block font-medium text-sm text-blue-500">
-                  Name
-                </label>
-                <input type="text" className="border p-2 w-full rounded-gl border-2 border-blue-500 bg-black text-white" />
-              </div>
-            </div>
+          <div className="mb-5">
+            <label className="block text-gray-700 font-bold mb-2">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-400 p-2 rounded-md"
+            />
+          </div>
 
-            <div className="mb-4">
-              <label className="block font-medium text-blue ">Message</label>
-              <textarea rows={4} className="border p-2 w-full rounded-gl border-2 border-blue-500 bg-black text-white" />
-            </div>
+          <div className="mb-5">
+            <label className="block text-gray-700 font-bold mb-2">
+              Message
+            </label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-full border border-gray-400 p-2 rounded-md h-48"
+            />
+          </div>
 
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded flex items-center"
-            >
-              <FaPaperPlane className="mr-2" />
-              Send Message
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+            disabled={isLoading}
+          >
+            {isLoading ? <Loader /> : "Send Message"}
+          </button>
+          <ToastContainer />
+        </form>
       </div>
-    </>
+    </div>
   );
 }
+
+export default ContactUs;

@@ -15,7 +15,7 @@ const Blogs = () => {
   return (
     <>
     <Navbar title="Blogs"/>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 top-">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 top-4 ml-12">
       {blogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}

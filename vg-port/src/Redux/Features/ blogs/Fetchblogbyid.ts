@@ -23,12 +23,14 @@ const initialState: BlogState = {
 
 export const fetchBlogById = createAsyncThunk(
   "blogs/fetchBlogById",
-  async (id: string) => {
+  async (_id: string) => {
     try {
       const response = await axios.get(
-        `https://prickly-tan-uniform.cyclic.app/api/v1/blog/${id}`
+        `https://prickly-tan-uniform.cyclic.app/api/v1/blog/${_id}`
       );
+      console.log(response,"vg1k");
       return response.data as Blog[];
+
     } catch (error) {
       throw new Error("Error fetching blog");
     }
@@ -45,7 +47,7 @@ const fetchBlogByIdSlice = createSlice({
     });
     builder.addCase(fetchBlogById.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.blog = action.payload.data;
+      state.blog = action.payload.data;  
     });
     builder.addCase(fetchBlogById.rejected, (state) => {
       state.status = "failed";
