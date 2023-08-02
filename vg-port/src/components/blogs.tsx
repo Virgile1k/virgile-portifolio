@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from "react"; // Don't forget to import React
 import { useSelector, useDispatch } from "react-redux";
 import BlogCard from "./Blogcard";

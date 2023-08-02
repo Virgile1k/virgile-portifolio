@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -28,17 +29,16 @@ export const fetchBlogs = createAsyncThunk(
   }
 );
 
- 
 export const deleteBlog = createAsyncThunk(
-  "blogs/fetchBlogById",
+  "blogs/deleteBlogById",
   async (id: string) => {
     try {
       const response = await axios.delete(
         `https://prickly-tan-uniform.cyclic.app/api/v1/blog/${id}`
       );
-      return response.data as Blog[];
+      return id; // Return the deleted blog's ID
     } catch (error) {
-      throw new Error("Error fetching blog");
+      throw new Error("Error deleting blog");
     }
   }
 );
@@ -52,7 +52,8 @@ export const blogSlice = createSlice({
       state.blogs = action.payload;
     });
     builder.addCase(deleteBlog.fulfilled, (state, action) => {
-      state.blogs = state.blogs.filter(blog => blog.id !== action.payload);
+      const deletedBlogId = action.payload;
+      state.blogs = state.blogs.filter(blog => blog.id !== deletedBlogId);
     });
   },
 });

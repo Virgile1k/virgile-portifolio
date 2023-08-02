@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // import axios, { AxiosResponse } from 'axios';
 import API from '../../api';

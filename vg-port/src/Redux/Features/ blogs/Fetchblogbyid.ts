@@ -12,12 +12,12 @@ interface Blog {
 }
 
 interface BlogState {
-  blog: Blog | null;
+  blogs: Blog[];
   status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: BlogState = {
-  blog: null,
+  blogs: [],
   status: "idle",
 };
 
@@ -28,9 +28,7 @@ export const fetchBlogById = createAsyncThunk(
       const response = await axios.get(
         `https://prickly-tan-uniform.cyclic.app/api/v1/blog/${_id}`
       );
-      console.log(response,"vg1k");
       return response.data as Blog[];
-
     } catch (error) {
       throw new Error("Error fetching blog");
     }
@@ -47,7 +45,7 @@ const fetchBlogByIdSlice = createSlice({
     });
     builder.addCase(fetchBlogById.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.blog = action.payload.data;  
+      state.blogs = action.payload;
     });
     builder.addCase(fetchBlogById.rejected, (state) => {
       state.status = "failed";

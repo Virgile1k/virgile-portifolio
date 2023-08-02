@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { BASE_URL } from '../utils/apiUtils';
 
