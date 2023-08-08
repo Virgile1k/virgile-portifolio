@@ -1,5 +1,5 @@
 // messagesSlice.ts
-import { createSlice, createAsyncThunk, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit';
 import axios from 'axios';
 
  export interface Message {
@@ -23,7 +23,7 @@ export const getMessage = createAsyncThunk('message/getMessage', async () => {
   const response = await axios.get<{ data: Message[] }>(
     'https://prickly-tan-uniform.cyclic.app/api/v1/message/all'
   );
-  return response.data as Message; // return response.data.data; if the messages are inside the 'data' field
+  return response.data.data; // return response.data.data; if the messages are inside the 'data' field
 });
 
 export const  messagegetSlice = createSlice({
@@ -37,7 +37,7 @@ export const  messagegetSlice = createSlice({
       })
       .addCase(getMessage.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.messages = action.payload.getDefaultMiddleware;
+        state.messages = action.payload;
       })
       .addCase(getMessage.rejected, (state) => {
         state.status = 'failed';

@@ -1,4 +1,4 @@
-import { Blog } from '../components/types/Blogiterface'; 
+import { Blog } from '../components/types/Bloginterface2'; 
 
 interface Props {
   blog: Blog;

@@ -1,28 +1,20 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
- // @ts-nocheck
-=======
-// BlogSlice.ts
->>>>>>> parent of 751f839 (solved ts issue)
-=======
- // @ts-nocheck
->>>>>>> 958ee42f311a02d9ee3d28f2713731c9266327ea
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface BlogState {
-  blogs: Blog[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-}
-interface Blog {
+ export interface Blog {
+  id:string;
   blogMainTitle: string;
   blogTitle: string;
   blogAuthor: string;
   blogImage: string;
-  blogSummary: string;
+  blogSummary: string; 
   blogDescription: string;
   publishedDate: Date;
+}
+
+ export interface BlogState {
+  blogs: Blog[];
+  status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: BlogState = {
@@ -30,16 +22,15 @@ const initialState: BlogState = {
   status: "idle",
 };
 
-export const fetchBlogs = createAsyncThunk("blogs/fetchBlogs", async () => {
-  try {
-    const response = await axios.get(
+export const fetchBlogs = createAsyncThunk(
+  "blogs/fetchBlogs", 
+  async () => {
+    const response = await axios.get<{data: Blog[]}>(
       "https://prickly-tan-uniform.cyclic.app/api/v1/blog"
     );
-    return response.data as Blog[]; // Assuming the API response is an array of blogs
-  } catch (error) {
-    throw new Error("Error fetching blogs"); // Handle error appropriately
+    return response.data;
   }
-});
+);
 
 const blogsSlice = createSlice({
   name: "blogs",
@@ -51,7 +42,7 @@ const blogsSlice = createSlice({
     });
     builder.addCase(fetchBlogs.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.blogs = action.payload.data;
+      state.blogs = action.payload.data; 
     });
     builder.addCase(fetchBlogs.rejected, (state) => {
       state.status = "failed";

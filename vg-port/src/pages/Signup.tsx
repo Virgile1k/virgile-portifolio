@@ -1,11 +1,11 @@
- 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../Redux/Features/signup/signup";
-import Navbar from "../components/Navbar"; 
+import Navbar from "../components/Navbar";
 import logo from "../assets/ logo.svg";
 import Loader from "../components/Loader";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { Link } from 'react-router-dom';
 
 function SignupPage() {
   const [fullName, setFullName] = useState("");
@@ -27,12 +27,14 @@ function SignupPage() {
 
   const handleSubmit = () => {
     setLoading(true); // set loading to true
-    dispatch(signupUser({ fullName, email, password, repeatPassword }))
+    dispatch(
+      signupUser({ fullName, email, password, repeatPassword } as any) as any
+    )
       .then(() => {
         setLoading(false); // set loading to false after dispatch
         handleFormReset(); // clear form after successful submission
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false); // set loading to false after dispatch
         // Handle any error, e.g., display an error message to the user
       });
@@ -45,7 +47,7 @@ function SignupPage() {
   return (
     <>
       <Navbar title="virgile" />
-      <ToastContainer/>
+      <ToastContainer />
 
       <div className="bg-black-500 p-10 flex justify-center items-center  ">
         <div className="max-w-md mx-auto bg-blue-500 p-8 shadow-lg w-96">
@@ -110,9 +112,9 @@ function SignupPage() {
             {loading ? <Loader /> : "Sign Up"}
           </button>
 
-          <a href="/Login" className="text-pink-50 text-lg ml-2">
+          <Link to="/Login" className="text-pink-50 text-lg ml-2">
             Have Account? Login
-          </a>
+          </Link>
         </div>
       </div>
     </>

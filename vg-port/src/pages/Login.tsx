@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { FormEvent } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/Navbar";
 import logo from "../assets/ logo.svg";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/features/User/loginSlice";
+import { login } from "../Redux/Features/User/loginSlice";
 import Loader from "../components/Loader";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,15 +19,14 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+  
     setIsLoading(true);
-
+  
     try {
-      await dispatch(login({ email, password })).then(() => {
-        navigate("/DashboardPage");
-      });
+      await dispatch(login({ email, password }) as any); // Using 'await' here
+      navigate("/DashboardPage");
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");
     } finally {
@@ -37,7 +38,7 @@ const Login = () => {
     <>
       <Navbar title="Virgile" />
 
-      <div className="bg-white-200 h-screen flex items-center">
+      <div className="bg-white-200 h-screen flex items-center ">
         <div className="max-w-md mx-auto bg-blue-500 p-8 shadow-lg">
           <ToastContainer />
           {isLoading && <Loader />}
@@ -63,7 +64,7 @@ const Login = () => {
               />
             </div>
 
-            <div className="relative mb-10">
+            <div className="relative mb-10 ">
               <label className="block text-pink-50 font-bold mb-2">
                 Password
               </label>
@@ -79,27 +80,26 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-1 top-11 text-blue-500"
+                  className="absolute right-1 top-11 text-blue-500 "
                 >
                   {showPassword ? "👁️" : "👁️‍🗨️"}
                 </button>
               </span>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center ">
               <button
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg w-80"
               >
-                
                 Login
               </button>
             </div>
           </form>
 
-          <a href="/Signup" className="text-pink-50 ml-2">
+          <Link to="/Signup" className="text-pink-50 ml-2">
             Have Account? Signup
-          </a>
+          </Link>
         </div>
       </div>
     </>

@@ -4,14 +4,14 @@ import { createLogger } from 'redux-logger';
 import authSlice, { LoginState } from "../Features/User/loginSlice";
 import thunk from 'redux-thunk';
 import signupSlice from "../Features/signup/signup";
-import blogSlice  from "../Features/ blogs/ addblog";
-import  blogsSlice from "../Features/ blogs/fethcallblogs";
-import fetchBlogByIdSlice from "../Features/ blogs/Fetchblogbyid";
+import blogSlice  from "../Features/blogs/addblog";
+import  blogsSlice from "../Features/blogs/fethcallblogs";
+import fetchBlogByIdSlice from "../Features/blogs/Fetchblogbyid";
 import userSlice from "../Features/User/Allusers";
 import messageSlice from "../Messages/Messagepost";
 import messagegetSlice from "../Messages/Messageget";
-import  blogSliceupdate  from "../Features/ blogs/updateblog";
-import  blogdeleteSlice from "../Features/ blogs/deleteblog";
+import  blogSliceupdate  from "../Features/blogs/updateblog";
+import  blogdeleteSlice from "../Features/blogs/deleteblog";
 // App middleware definition
 type AppMiddleware = Middleware[];
 
@@ -44,7 +44,7 @@ const store = configureStore({
   reducer: {
     user: authSlice.reducer,
     signup:signupSlice,
-    addblog:blogSlice.reducer,
+    addblog:blogSlice,
     blogs:blogsSlice.reducer,
     blogid:fetchBlogByIdSlice,
     users:userSlice.reducer,

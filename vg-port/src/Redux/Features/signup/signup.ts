@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import User from '../../../components/types/Userinterface';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { BASE_URL } from '../../../utils/apiUtils'; 
+import { BASE_URL } from '../../../utils/apiutils'; 
  
 
 interface UserState {
@@ -38,7 +38,7 @@ const userSlice = createSlice({
         toast.success('Signed up succesfully click the login link to login');
          
       })
-      .addCase(signupUser.rejected, (state, action) => {
+      .addCase(signupUser.rejected, (state) => {
         state.status = 'failed';
         state.user = null;
          // Log the error for debugging purposes

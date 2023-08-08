@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import axios, { AxiosResponse } from 'axios';
-import API from '../../api';
-import { toast } from 'react-toastify';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
+import API from "../../api";
+import { toast } from "react-toastify";
 
 interface User {
   fullName: string;
@@ -9,7 +9,7 @@ interface User {
   role: string;
 }
 
-interface LoginState {
+export interface LoginState {
   user: User | null;
   isLoading: boolean;
   isSuccess: boolean;
@@ -33,18 +33,21 @@ const initialState: LoginState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-  errorMessage: '',
+  errorMessage: "",
 };
 
 export const login = createAsyncThunk(
-  'login',
+  "login",
   async (credentials: { email: string; password: string }, thunkAPI) => {
     try {
-      const response: AxiosResponse<LoginResponse> = await API.post('/api/v1/login', credentials);
-      const { token, fullName, email, role } = response.data.data;
+      const response: AxiosResponse<LoginResponse> = await API.post(
+        "/api/v1/login",
+        credentials
+      );
+      const { token, fullName, email, role } = response.data;
 
       // Store token in local storage
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       console.log(response);
       console.log(fullName);
       console.log(email);
@@ -58,18 +61,16 @@ export const login = createAsyncThunk(
 );
 
 export const navigateToRoute = createAsyncThunk(
-  'auth/navigateToRoute',
+  "auth/navigateToRoute",
   async (payload: NavigationPayload, thunkAPI) => {
     const { route } = payload;
-    // Perform any necessary logic before navigation
 
-    // Dispatch an action to handle navigation in your component
-    thunkAPI.dispatch({ type: 'navigation/navigate', payload: { route } });
+    thunkAPI.dispatch({ type: "navigation/navigate", payload: { route } });
   }
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -78,7 +79,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.isSuccess = false;
-        state.errorMessage = '';
+        state.errorMessage = "";
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -88,13 +89,13 @@ const authSlice = createSlice({
           email: action.payload.email,
           role: action.payload.role,
         };
-        toast.success('Login successful!');
+        toast.success("Login successful!");
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload as string;
-        toast.error('Login failed!');
+        toast.error("Login failed!");
       });
   },
 });

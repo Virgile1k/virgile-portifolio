@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import API from "../../blogapi";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -23,13 +22,14 @@ const initialState: BlogState = {
   status: "idle",
 };
 
-export const addblog = createAsyncThunk("blogs/addblog", async (blogData) => {
+export const addBlog = createAsyncThunk("blogs/addBlog", async (blogData: Blog) => {
   const response = await axios.post(
     "https://prickly-tan-uniform.cyclic.app/api/v1/blog",
     blogData
   );
   return response.data;
 });
+
 export const blogSlice = createSlice({
   name: "blogs",
   initialState,
@@ -38,18 +38,18 @@ export const blogSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addblog.pending, (state) => {
+      .addCase(addBlog.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(addblog.fulfilled, (state, action) => {
+      .addCase(addBlog.fulfilled, (state, action: PayloadAction<Blog[]>) => {
         state.status = "succeeded";
-        toast.success("Blog  Added Successfully");
+        toast.success("Blog Added Successfully");
         state.blogs = action.payload;
       })
-      .addCase(addblog.rejected, (state) => {
+      .addCase(addBlog.rejected, (state) => {
         state.status = "failed";
       });
   },
 });
 
-export default blogSlice;
+export default blogSlice.reducer;

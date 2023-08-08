@@ -1,92 +1,89 @@
-import React, { useState, useEffect } from "react";
-import profileImage from "../assets/ EW2.jpeg";
+import { useState, useEffect } from "react";
+import profileImage from "../assets/vg.jpeg";
 import Navbar from "../components/Navbar";
+import { CirclesWithBar } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  // Simulate loading state (replace this with actual data fetching)
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate data fetching delay
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <CirclesWithBar
+          height="100"
+          width="100"
+          color="#1b5a8b"
+          outerCircleColor="#1b5a8b"
+          barColor="#1b5a8b"
+          ariaLabel="circles-with-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
+
   return (
     <>
       <Navbar title="Virgile" />
-      {isLoading ? (
-        <LoadingSkeleton />
-      ) : (
-        <ActualContent profileImage={profileImage} />
-      )}
-      <footer className="bg-black text-blue-500 text-center py-4">
-        <p>&copy; {new Date().getFullYear()} Virgile2023. All rights reserved.</p>
+
+      <ActualContent profileImage={profileImage} />
+
+      <footer className="bg-black text-blue-500 text-center py-2">
+        <p>
+          &copy; {new Date().getFullYear()} Virgile2023. All rights reserved.
+        </p>
       </footer>
     </>
   );
 };
 
-const LoadingSkeleton = () => {
+const ActualContent = ({ profileImage }: { profileImage: string }) => {
   return (
-    <section className="bg-black relative">
-      <div className="relative flex lg:flex-row items-center container mx-auto px-5 py-24 lg:py-32 border-2 border-blue-500">
-        <div className="lg:w-140">
-          <div className="bg-gray-300 rounded-lg animate-pulse w-64 h-96 border-2 border-blue-500"></div>
-        </div>
-
-        <div className="lg:w-1/2 lg:pl-16 lg:text-left">
-          <h1 className="bg-gray-300 animate-pulse text-4xl lg:text-5xl font-bold font-heading mt-6 lg:mt-0 text-blue-500">
-            Loading...
-          </h1>
-
-          <p className="bg-gray-300 animate-pulse text-zinc-300 leading-relaxed mt-4 text-lg">
-         
-          </p>
-
-          <button className="bg-gray-300 animate-pulse">
-       
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const ActualContent = ({ profileImage }) => {
-  return (
-    <section className="bg-black relative">
-      <div className="relative flex lg:flex-row items-center container mx-auto px-5 py-24 lg:py-32 border-2 border-blue-500">
-        <div className="lg:w-140">
-          <div className="bg-white-500 rounded-lg overflow-hidden w-64 h-96 border-2 border-blue-500">
+    <section className="bg-black relative overflow-hidden">
+    <div className="flex flex-col  h-full lg:flex-row items-center container mx-auto px-5 py-2 lg:py-8 border-2 border-blue-500 rounded-md">
+      <div className="lg:w-1/3 mb-6 lg:mb-0 lg:mr-6">
+        <div className="bg-white-500 rounded-lg overflow-hidden  border-2 border-blue-500">
             <img
-              className="w-full h-full object-cover"
+              className="w-full  object-cover"
               src={profileImage}
               alt="Profile picture"
             />
           </div>
         </div>
 
-        <div className="lg:w-1/2 lg:pl-16 lg:text-left">
-          <h1 className="text-4xl lg:text-5xl font-bold font-heading mt-6 lg:mt-0 text-blue-500">
+        <div className="lg:w-2/4 ">
+          <h1 className="text-4xl lg:text-4xl font-bold font-heading mt-2 text-center lg:text-left text-blue-500">
             I'm Virgile Ndayambaje{" "}
-            <span className="text-zinc-300">Full stack Engineer</span>
+            <span className="block lg:inline-block text-zinc-300">Full stack Engineer</span>
           </h1>
 
-          <p className="text-zinc-300 leading-relaxed mt-4 text-lg">
-            I'm a web designer & front‐end developer focused on crafting clean
-            & user‐friendly experiences, I am passionate about building
-            excellent software that improves the lives of those around me.
+          <p className="text-zinc-300 leading-relaxed p-6 lg:p-0 text-lg font-medium text-left lg:text-left">
+            I am a seasoned full-stack engineer with expertise in web design and
+            front-end development. My primary focus is on creating polished and
+            user-friendly experiences. I am dedicated to the art of crafting
+            exceptional software solutions that not only meet but exceed the
+            needs of users, thereby enhancing their daily lives. My passion lies
+            in the seamless integration of both front-end and back-end
+            technologies to deliver comprehensive and innovative solutions
+            across the entire software stack.
           </p>
 
-          <button>
-            <a
-              href="about"
-              className="bg-blue-500 px-8 py-3 mt-8 inline-block text-white font-semibold rounded-lg"
+          <button className="text-center lg:text-left">
+            <Link
+              to="/about"
+              className="bg-blue-500 ml-4 mt-6 px-8 py-3 mt-2 inline-block text-white font-semibold rounded-lg"
             >
               More About Me
-            </a>
+            </Link>
           </button>
         </div>
       </div>

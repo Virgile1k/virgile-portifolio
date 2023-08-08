@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {BlogState} from "../Redux/Features/blogs/fethcallblogs";
 
-import { fetchBlogs} from '../Redux/Features/ blogs/fethcallblogs'; // Correct the import path
-interface Blog {
-  blogMainTitle: string;
-  blogTitle: string;
-  blogAuthor: string;
-  blogImage: string;
-  blogSummary: string;
-  blogDescription: string;
-  publishedDate: Date;
-}
+import { fetchBlogs} from '../Redux/Features/blogs/fethcallblogs'; // Correct the import path
+ 
+
 const RecentBlogs = () => {
   const dispatch = useDispatch();
-  const blogs = useSelector(state => state.blogs.blogs);
-  const status = useSelector(state => state.blogs.status);
+  const blogs = useSelector((state: { blogs:  BlogState }) => state.blogs.blogs);
+  const status = useSelector((state: { blogs: BlogState}) => state.blogs.status);
 
   useEffect(() => {
-    dispatch(fetchBlogs());
+    dispatch(fetchBlogs() as any);
   }, [dispatch]);
 
   if (!Array.isArray(blogs) || blogs.length === 0) {

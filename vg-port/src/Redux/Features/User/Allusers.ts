@@ -1,5 +1,4 @@
- // @ts-nocheck
- // userSlice.ts
+ 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -11,7 +10,7 @@ interface User {
   repeatPassword: string;
 }
 
-interface UserState {
+export interface UserState {
   users: User[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
 }
@@ -25,7 +24,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await axios.get<User[]>(
     'https://prickly-tan-uniform.cyclic.app/api/v1/user/all'
   );
-  return response.data.data;
+  return response.data;
 });
 
 export const userSlice = createSlice({

@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-// @ts-nocheck
-=======
->>>>>>> parent of 751f839 (solved ts issue)
-=======
-// @ts-nocheck
->>>>>>> 958ee42f311a02d9ee3d28f2713731c9266327ea
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface Blog {
   blogMainTitle: string;
@@ -21,38 +13,42 @@ interface Blog {
 
 interface BlogState {
   blog: Blog | null; // Corrected the type of 'blog' property
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: BlogState = {
   blog: null,
-  status: 'idle',
+  status: "idle",
 };
 
 export const updateBlog = createAsyncThunk(
-  'blog/updateBlog',
-  async (updatedBlog: Blog, { dispatch }) => { // Pass the updated blog as the argument
-    const response = await axios.patch('https://long-blue-firefly-vest.cyclic.app/api/v1/blog', updatedBlog);
- 
+  "blog/updateBlog",
+  async (updatedBlog: Blog) => {
+    // Pass the updated blog as the argument
+    const response = await axios.patch(
+      "https://long-blue-firefly-vest.cyclic.app/api/v1/blog",
+      updatedBlog
+    );
+
     return response.data;
   }
 );
 
 export const blogSliceupdate = createSlice({
-  name: 'blog',
+  name: "blog",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(updateBlog.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(updateBlog.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.blog = action.payload;
       })
       .addCase(updateBlog.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       });
   },
 });

@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../Redux/Features/User/Allusers";
+import { UserState} from "../Redux/Features/User/Allusers";
 
 const UserList: React.FC = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.users);
-  const status = useSelector((state) => state.users.status);
+  const users = useSelector((state: UserState) => state.users);  // Accessing the entire users array
+  const status = useSelector((state: UserState) => state.status);  
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsers() as any);
   }, [dispatch]);
 
   if (status === "loading") {

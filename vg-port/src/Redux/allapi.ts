@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {Blog} from "../components/types/Bloginterface2"
 const api = axios.create({
   baseURL: 'https://long-blue-firefly-vest.cyclic.app/api/v1/blog'
 });

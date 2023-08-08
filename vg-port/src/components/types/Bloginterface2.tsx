@@ -1,6 +1,7 @@
 // types.ts
 
 export interface Blog {
+    _id: string;
     blogMainTitle: string;
     blogTitle: string;
     blogAuthor: string;
@@ -9,3 +10,4 @@ export interface Blog {
     blogDescription: string;
     publishedDate: Date;
   }
+  

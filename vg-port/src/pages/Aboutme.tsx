@@ -1,3 +1,6 @@
+import { useState } from "react";
+import {  useEffect } from "react";
+import { CirclesWithBar } from "react-loader-spinner";
 import css from "../assets/ css.png";
 import tailwind from "../assets/tailwind.png";
 import html from "../assets/ html.png";
@@ -13,7 +16,7 @@ import java from "../assets/ java.png";
 import cpp from "../assets/ c++.png";
 import sql from "../assets/ sql.webp";
 import DownloadCVButton from "../components/downloadcv";
-import myCV from "../assets/docs/ndayambajecv.pdf";
+import myCV from "../assets/docs/virgileresume.pdf";
 import fig from "../assets/ figma.jpeg";
 import Page from "../pages/Portifolio";
 import Navbar from "../components/Navbar";
@@ -23,6 +26,30 @@ interface AboutProps {
 }
 
 const About = ({ title }: AboutProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Simulate data fetching delay
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <CirclesWithBar
+          height="100"
+          width="100"
+          color="#1b5a8b"
+          outerCircleColor="#1b5a8b"
+          barColor="#1b5a8b"
+          ariaLabel="circles-with-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
   return (
     <>
     
@@ -30,7 +57,7 @@ const About = ({ title }: AboutProps) => {
       <div className="bg-black text-white py-10">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-10 text-blue-500 animate-pulse ">
-            About Me<span className="text-yellow-500">{title}</span>
+             <span className="text-blue-500">{title}</span>
           </h1>
 
           <div className="md:flex">
@@ -139,7 +166,7 @@ const ExperienceCard = () => {
 const ProjectCard = () => {
   return (
     <div className="bg-yellow-500 p-4 rounded-lg m-4 ">
-      <h3 className="text-lg font-semibold mb-2 animate-pulse ">12+ projects</h3>
+      <h3 className="text-lg font-semibold mb-2 animate-pulse ">12+ projects completed projects</h3>
     </div>
   );
 };
