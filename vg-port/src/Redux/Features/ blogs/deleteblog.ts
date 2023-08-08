@@ -1,4 +1,7 @@
-// @ts-nocheck
+<<<<<<< HEAD
+//@ts-nocheck
+=======
+>>>>>>> parent of 751f839 (solved ts issue)
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -29,16 +32,17 @@ export const fetchBlogs = createAsyncThunk(
   }
 );
 
+ 
 export const deleteBlog = createAsyncThunk(
-  "blogs/deleteBlogById",
+  "blogs/fetchBlogById",
   async (id: string) => {
     try {
       const response = await axios.delete(
         `https://prickly-tan-uniform.cyclic.app/api/v1/blog/${id}`
       );
-      return id; // Return the deleted blog's ID
+      return response.data as Blog[];
     } catch (error) {
-      throw new Error("Error deleting blog");
+      throw new Error("Error fetching blog");
     }
   }
 );
@@ -52,8 +56,7 @@ export const blogSlice = createSlice({
       state.blogs = action.payload;
     });
     builder.addCase(deleteBlog.fulfilled, (state, action) => {
-      const deletedBlogId = action.payload;
-      state.blogs = state.blogs.filter(blog => blog.id !== deletedBlogId);
+      state.blogs = state.blogs.filter(blog => blog.id !== action.payload);
     });
   },
 });

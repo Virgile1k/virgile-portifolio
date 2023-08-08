@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -12,12 +13,12 @@ interface Blog {
 }
 
 interface BlogState {
-  blogs: Blog[];
+  blog: Blog | null;
   status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: BlogState = {
-  blogs: [],
+  blog: null,
   status: "idle",
 };
 
@@ -28,7 +29,9 @@ export const fetchBlogById = createAsyncThunk(
       const response = await axios.get(
         `https://prickly-tan-uniform.cyclic.app/api/v1/blog/${_id}`
       );
+      console.log(response,"vg1k");
       return response.data as Blog[];
+
     } catch (error) {
       throw new Error("Error fetching blog");
     }
@@ -45,7 +48,7 @@ const fetchBlogByIdSlice = createSlice({
     });
     builder.addCase(fetchBlogById.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.blogs = action.payload;
+      state.blog = action.payload.data;  
     });
     builder.addCase(fetchBlogById.rejected, (state) => {
       state.status = "failed";

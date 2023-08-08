@@ -1,13 +1,12 @@
-// @ts-nocheck
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 interface Props {
   blog: Blog;
 }
 
 export default function BlogCard({ blog }: Props) {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const publishedDate =
     blog.publishedDate instanceof Date
       ? blog.publishedDate.toDateString()
@@ -28,7 +27,10 @@ export default function BlogCard({ blog }: Props) {
       <div className="absolute bottom-4 right-4">
         <p className="text-sm text-gray-500">{publishedDate}</p>
 
-        <Link to={`/blog/${blog._id}`} className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
+        <Link
+          to={`/blog/${blog._id}`}
+          className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs"
+        >
           Read More
         </Link>
       </div>

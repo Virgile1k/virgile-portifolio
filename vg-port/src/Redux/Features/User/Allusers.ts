@@ -1,3 +1,4 @@
+ // @ts-nocheck
  // userSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';

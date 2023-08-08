@@ -1,4 +1,7 @@
-  // @ts-nocheck
+<<<<<<< HEAD
+// @ts-nocheck
+=======
+>>>>>>> parent of 751f839 (solved ts issue)
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -26,6 +29,7 @@ export const updateBlog = createAsyncThunk(
   'blog/updateBlog',
   async (updatedBlog: Blog, { dispatch }) => { // Pass the updated blog as the argument
     const response = await axios.patch('https://long-blue-firefly-vest.cyclic.app/api/v1/blog', updatedBlog);
+ 
     return response.data;
   }
 );

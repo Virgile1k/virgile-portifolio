@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addblog } from "../Redux/Features/ blogs/ addblog";

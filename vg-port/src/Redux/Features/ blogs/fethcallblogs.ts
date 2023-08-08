@@ -1,4 +1,8 @@
-// @ts-nocheck
+<<<<<<< HEAD
+ // @ts-nocheck
+=======
+// BlogSlice.ts
+>>>>>>> parent of 751f839 (solved ts issue)
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";

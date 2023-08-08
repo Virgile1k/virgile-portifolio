@@ -1,5 +1,5 @@
-/* eslint-env node */
-
+ /* eslint-env node */
+// @ts-nocheck
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -11,17 +11,17 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaVersion: 2022, // Specify the ECMAScript version
     sourceType: 'module',
-    project: true,
-    tsconfigRootDir: __dirname,
+    project: './tsconfig.json', // Provide the path to your tsconfig.json
   },
-  plugins: ['react-refresh'],
   rules: {
+    "@typescript-eslint/ban-ts-comment": "error",
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
     '@typescript-eslint/no-non-null-assertion': 'off',
   },
-}
+  plugins: ['react-refresh'],
+};
