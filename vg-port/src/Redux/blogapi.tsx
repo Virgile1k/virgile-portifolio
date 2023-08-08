@@ -1,5 +1,5 @@
 // api.js
-// @ts-nocheck
+
 import axios from 'axios';
 
 const token = localStorage.getItem('token') || ''; 

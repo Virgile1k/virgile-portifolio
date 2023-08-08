@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import Routes from "./routes/index";
