@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // @ts-nocheck
 =======
 >>>>>>> parent of 751f839 (solved ts issue)
+=======
+// @ts-nocheck
+>>>>>>> 958ee42f311a02d9ee3d28f2713731c9266327ea
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
