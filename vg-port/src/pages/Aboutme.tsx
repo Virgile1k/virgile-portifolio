@@ -16,12 +16,12 @@ import java from "../assets/ java.png";
 import cpp from "../assets/ c++.png";
 import sql from "../assets/ sql.webp";
 import DownloadCVButton from "../components/downloadcv";
-import myCV from "../assets/docs/virgileresume.pdf";
+import myCV from "../assets/docs/_CV-VIRGILE.pdf";
 import fig from "../assets/ figma.jpeg";
 import Page from "../pages/Portifolio";
 import Navbar from "../components/Navbar";
 
-interface AboutProps {
+interface AboutProps { 
   title: string;
 }
 
