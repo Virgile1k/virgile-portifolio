@@ -1,27 +1,27 @@
 import { useState } from "react";
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
-import css from "../assets/ css.png";
+import css from "../assets/css.png";
 import tailwind from "../assets/tailwind.png";
-import html from "../assets/ html.png";
-import redux from "../assets/ redux.png";
-import node from "../assets/ nodejs.png";
-import mongodb from "../assets/ mongo db.png";
-import react from "../assets/ react.png";
+import html from "../assets/html.png";
+import redux from "../assets/redux.png";
+import node from "../assets/nodejs.png";
+import mongodb from "../assets/mongodb.png";
+import react from "../assets/react.png";
 import js from "../assets/js.png";
-import ts from "../assets/ ts.png";
-import git from "../assets/ gitico.jpeg";
-import psql from "../assets/ psql.jpeg"; // Corrected import statement
-import java from "../assets/ java.png";
-import cpp from "../assets/ c++.png";
-import sql from "../assets/ sql.webp";
+import ts from "../assets/ts.png";
+import git from "../assets/gitico.jpeg";
+import psql from "../assets/psql.jpeg"; // Corrected import statement
+import java from "../assets/java.png";
+import cpp from "../assets/c++.png";
+import sql from "../assets/sql.webp";
 import DownloadCVButton from "../components/downloadcv";
 import myCV from "../assets/docs/_CV-VIRGILE.pdf";
-import fig from "../assets/ figma.jpeg";
+import fig from "../assets/figma.jpeg";
 import Page from "../pages/Portifolio";
 import Navbar from "../components/Navbar";
 
-interface AboutProps { 
+interface AboutProps {
   title: string;
 }
 
@@ -52,12 +52,12 @@ const About = ({ title }: AboutProps) => {
   }
   return (
     <>
-    
+
       <Navbar title="About" />
       <div className="bg-black text-white py-10">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-10 text-blue-500 animate-pulse ">
-             <span className="text-blue-500">{title}</span>
+            <span className="text-blue-500">{title}</span>
           </h1>
 
           <div className="md:flex">
@@ -135,10 +135,10 @@ const About = ({ title }: AboutProps) => {
 
           {/* Experience */}
         </div>
-        <Page/>
+        <Page />
         <footer className="bg-black text-blue-500 text-center py-4">
-        <p>&copy; {new Date().getFullYear()} Virgile2023. All rights reserved.</p>
-      </footer>
+          <p>&copy; {new Date().getFullYear()} Virgile2023. All rights reserved.</p>
+        </footer>
       </div>
     </>
   );
